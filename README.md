@@ -176,6 +176,7 @@ git diff             比较工作区和暂存区的区别，原文件是工作�
 
 ![](https://i.loli.net/2019/07/18/5d301ed5546ea78586.png)
 
+&nbsp;
 
 git diff HEAD          比较工作区与 HEAD（当前分支，最新提交）的区别，原文件是工作区，目标文件是暂存区
 
@@ -203,6 +204,7 @@ git checkout commit_id    切换到某个历史提交点（此时处于在游离
 
 ![](https://i.loli.net/2019/07/18/5d301ef6de06869114.png)
 
+&nbsp;
 
 git branch -d a   删除 a 分支
 
