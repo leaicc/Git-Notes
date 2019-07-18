@@ -1,5 +1,37 @@
 ## Git 笔记  
 
+> 在 B 站学习 Git 过程中记的笔记，如有错误，欢迎指正。
+
+![](https://i.loli.net/2019/07/18/5d3024326f60867129.png)
+
+优先级 3>2>1
+
+ 
+
+**局部：**
+
+配置文件位置：当前项目/.git/config（文件）
+
+使用 git config --local user.name "name"，git config --local user.email "email" 设置局部的变量
+
+ 
+
+**全局**：
+
+配置文件位置：~/.gitconfig（文件）
+
+使用 git config --global user.name "name"，git config --global user.email "email" 设置全局的变量，别名一般是全局的，就在这里设置
+
+ 
+
+git config --list   列出配置信息
+
+删除项目用户名 git config --local --unset user.name
+
+删除项目邮箱名 git config --local --unset user.email
+
+ 
+
 #### 常用命令
 
 mkdir test     创建 test 文件夹
@@ -46,13 +78,11 @@ git add .          一次性提交所有文件，最好不要用 git add *
 
 git status         查看当前状态
 
- 
-
-![5  i  add  stage  HEAD  commit  master  5  rigin/f-fie  pull  push ](file:///C:/Users/cc/AppData/Local/Temp/msohtmlclip1/01/clip_image001.png)
+![](https://i.loli.net/2019/07/18/5d301e6460ab439254.png)
 
  
 
- 
+**删除与恢复**
 
 git rm a.txt:
 
@@ -106,6 +136,8 @@ git reset --hard commit_id  已经提交到仓库了怎么撤销呢，执行这�
 
  
 
+**日志**
+
 git log             查看所有产生的 commit 记录，按 q 推出
 
 git reflog         显示所有历史命令，当你回退到之前的本版之后又想回退回来，但是 git log 已经没有你想要的 commit id 了，那就使用这个命令
@@ -132,9 +164,7 @@ git log --graph --pretty=oneline --abbrev-commit    查看分支合并情况（�
 
 git log --graph   以图形化方式查看分支合并情况
 
-git log --pretty=format:"格式"  以某种格式显示提交信息
-
-
+git log --pretty=format:"格式"  以某种格式显示提交信息，选项如下
 
 选项   说明
  %H    提交对象（commit）的完整哈希字串
@@ -155,11 +185,15 @@ git log --pretty=format:"格式"  以某种格式显示提交信息
 
 
 
+**比较不同**
+
 git diff             比较工作区和暂存区的区别，原文件是工作区，目标文件是暂存区
 
 文件 1.txt，新增一行 1，git add . 然后再新增一行 2，用 git diff 比较，分析如下：
 
-![因 为 比 较 的 是 同 一 个 文 件 的 工 作 区 和 皙 存 区 的 区 别 。  所 以 要 用 不 同 的 代 号 来 示  C ： \Use• s\cc\Desktop\1  (master)  ； git difS  diff --git a/1.txt b/1.txt  index d99491f 一 1191247 199644  a/1.txt  示 原 始 文 件 从 第 一 行 到  + + + b/1 ． txt  第 一 行 （ 最 后 一 行  1  就 了 苎 标 文 件 ](file:///C:/Users/cc/AppData/Local/Temp/msohtmlclip1/01/clip_image002.png)
+![](https://i.loli.net/2019/07/18/5d301ed5546ea78586.png)
+
+
 
 git diff HEAD          比较工作区与 HEAD（当前分支，最新提交）的区别，原文件是工作区，目标文件是暂存区
 
@@ -185,7 +219,9 @@ git checkout commit_id    切换到某个历史提交点（此时处于在游离
 
 执行 git branch <new-branch-name> commit_id 会创建一个新的分支
 
-![mygit  git checkout master  Warning: you are leaving 1 camit behind, not connected to  any of your branches:  61e5936 my camit  If you want to keep it by creating a new branch,  to do so with:  pit branch 61e5936  Switched to branch 'master '  this may be a good time ](file:///C:/Users/cc/AppData/Local/Temp/msohtmlclip1/01/clip_image003.png)
+![](https://i.loli.net/2019/07/18/5d301ef6de06869114.png)
+
+
 
 git branch -d a   删除 a 分支
 
@@ -197,23 +233,21 @@ git push origin :dev   删除远程 dev  分支
 
  
 
+**合并**
+
 git merge a      把 a 分支合并到当前分支，需要先切换到当前分支，然后再执行此操作
 
-![计算机生成了可选文字: ·HEAD指向的是当前分支 当前分支是master, 所以HEAD指向master ·master指向提交 HEAD](file:///C:/Users/cc/AppData/Local/Temp/msohtmlclip1/01/clip_image004.png)
+![](https://i.loli.net/2019/07/18/5d30232eefffb87216.png)
 
- 
-
-![一 次 合 并  创 建 了 新 分 支 dev  'GAD  这 种 台 并 称 为 ” 快 进 “  (fastforward)  在 dev 重 憷 交 了 一 次  因 为 没 有 任 何 的 冲 突  吧 dev 台 并 到 master  HEAD ](file:///C:/Users/cc/AppData/Local/Temp/msohtmlclip1/01/clip_image005.png)
-
- 
+ ![](https://i.loli.net/2019/07/18/5d3020a8256bd13076.png)
 
 如果 master 和 dev 分支修改了同一个地方：把 dev 合并到 master 上时，会出现冲突，需手动解决，解决之后，执行 git status 查看状态，需要 git add "file"，然后 git commit 就行
 
 再回到 dev 分支上，此时 dev 分支上的内容一直没变过，但已经落后 master 一次了，需要把 master 分支合并到 dev，即在 dev 分支上执行 git merge master，会出现快进（fast-forward）
 
-![rygit cit: (rmster) X git status  On branch master  You have umerged paths.  (fix conflicts and run "gif carnit")  (use "git add to mrk resolution)  Umnerged paths:  both rodified:  test2. txt  no changes added to camit (use "git add" and/or  —B mygit  git add test2.txt  mygit  g it status  On branch master  All conflicts fixed byt you are still merging.  (use "git camit" to conclude merge)  nothing to ccmnit, vorking directory clean  mygit  git camit  [master 551b5ddJ krge branch 'dev'  nygit  ngit comit ](file:///C:/Users/cc/AppData/Local/Temp/msohtmlclip1/01/clip_image006.png)
+![](https://i.loli.net/2019/07/18/5d302125d5fdd57423.png)
 
- 
+
 
 **远程**
 
@@ -265,7 +299,7 @@ git branch dev origin/dev（等价于 git checkout --track origin/dev，在本�
 
 一个人删除了一个远程分支，另一个人使用 git remote show origin 查看远程仓库的信息，会出现下面情况（本地 master，dev，test，远程master，dev，test，删除远程 dev）
 
-![C: \Users\cc\Desktop\2 (dev)  git remote show origin  remote origin  Fetch URL: https://github.com/leaicc/l.git  Push URL: https://github.com/leaicc/l.git  HEAD branch: master  Remote branches:  master  tracked  refs/remotes/origin/dev stale (use git remote prune' to remove)  test  tracked  gii: pfLlne Ofigin  Local branches configured for git pull •  dev  merges with remote dev  master merges with remote master  test merges with remote test  Local refs configured for git push' •  master pushes to master (up to date)  pushes to test  (up to date)  test ](file:///C:/Users/cc/AppData/Local/Temp/msohtmlclip1/01/clip_image007.png)
+![](https://i.loli.net/2019/07/18/5d30214b4f89d61303.png)
 
  
 
@@ -283,13 +317,15 @@ git stash drop    （只保存一个工作现场，多个的话需要加参数�
 
 git stash pop      合并上面两步操作
 
-![• git stash apply (stash18ö#ÖhffIJßR, stash drop  • git stash pop  • git stash apply stash@{0} ](file:///C:/Users/cc/AppData/Local/Temp/msohtmlclip1/01/clip_image008.png)
+![](https://i.loli.net/2019/07/18/5d3021660900660984.png)
 
  
 
-**g****it** **标签**
+**git 标签**
 
-![Gitfi  • (lightweight)  (annotated)  git tag  git tag -I  • git tag VI.O.I  • git tag -a VI ,0.2 -m 'release version'  • git tag -d tag _ name ](file:///C:/Users/cc/AppData/Local/Temp/msohtmlclip1/01/clip_image009.png)
+![](https://i.loli.net/2019/07/18/5d30218b9058f39798.png)
+
+
 
 git show v1.0      显示标签内容
 
@@ -321,26 +357,32 @@ git push origin --delete tag v1.0
 
 .gitignore
 
-![gitignore  。 * 、 a # 忽 略 所 有 a 结 尾 的 文 件  。 !lib a # 但 lib.a 除 外  · /TODO # 仅 仅 忽 略 项 目 根 目 录 下 的 TODO 文 件 ， 不 包 括  subdir/TODO  / 0d0 忽 子 目 录 下 的 todo 艾 件  /**/todo 忽 根 目 录 下 所 有 的 todo 艾 件  。 build/ # 忽 略 build/ 目 录 下 的 所 有 文 件  。 doc/* txt # 会 忽 略 doc/notes.txt 但 不 包 括 doc/server/  arch.txt  doc/*/*.txt 忽 所 有 子 目 录 下 的 t × t 艾 件  doc/**/*.txt 忽 doc 目 录 下 的 所 有 的 t × t 艾 件 ](file:///C:/Users/cc/AppData/Local/Temp/msohtmlclip1/01/clip_image010.png)
+![](https://i.loli.net/2019/07/18/5d3021a1f175678980.png)
+
+对于已经添加版本库并推送到远程的文件，后来又加入到了 .gitignore，但是远程并不会删除该文件
+
+git rm -r --cached .  删除暂存区所有的文件
+
+git add .
+
+git commit -m "xxx"
+
+git push
+
+结束
+
+
+
+**git gc**  垃圾回收
 
  
 
-git gc  垃圾回收
+**git rebase**
 
- 
+![](https://i.loli.net/2019/07/18/5d3021c3107c568358.png)
 
-git rebase
+![](https://i.loli.net/2019/07/18/5d3021d5ee70351159.png)
 
-![origin  merge  02  mywork ](file:///C:/Users/cc/AppData/Local/Temp/msohtmlclip1/01/clip_image011.png)
+ ![](https://i.loli.net/2019/07/18/5d3021e4665da71037.png)
 
- 
-
-![rebase  origin  mywork ](file:///C:/Users/cc/AppData/Local/Temp/msohtmlclip1/01/clip_image012.png)
-
- 
-
-![· rebase 过 程 中 也 会 出 现 冲 突  · 解 决 冲 突 后 ， 使 用 git add 添 加 ， 然 后 执 行  cit rebase 一 一 continue  ． 接 下 来 Git 会 继 续 应 用 余 下 的 补 丁  · 任 何 时 候 都 可 以 通 过 如 下 命 令 终 止 rebase ， 分 支 会 帧 复 到  rebase 开 始 前 的 状 态  Cit rebase 一 一 abort ](file:///C:/Users/cc/AppData/Local/Temp/msohtmlclip1/01/clip_image013.png)
-
- 
-
-![· 不 要 对 master 分 支 执 行 rebase, 否 则 会 引 起 很 多  问 题  一 般 来 说 ， 执 行 rebase 的 分 支 都 是 自 己 的 本 地 分  支 ， 没 有 推 送 到 远 程 版 本 库 ](file:///C:/Users/cc/AppData/Local/Temp/msohtmlclip1/01/clip_image014.png)
+ ![](https://i.loli.net/2019/07/18/5d3021f20960650897.png)
