@@ -340,6 +340,8 @@ git push origin --delete tag v1.0
 
 ![](https://i.loli.net/2019/07/18/5d3021a1f175678980.png)
 
+&nbsp;
+
 对于已经添加版本库并推送到远程的文件，后来又加入到了 .gitignore，但是远程并不会删除该文件
 
 git rm -r --cached .  删除暂存区所有的文件
