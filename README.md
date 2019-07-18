@@ -6,7 +6,7 @@
 
 优先级 3>2>1
 
- 
+
 
 **局部：**
 
@@ -96,7 +96,7 @@ git rm a.txt:
 
 2、git checkout -- a.txt 把文件从暂存区恢复到工作区（也即是将工作区的修改丢弃）
 
- 
+&nbsp;
 
 rm a.txt:
 
@@ -106,7 +106,7 @@ rm a.txt:
 
 若确定要删除这个文件，删除完之后，需要把删除这个操作 add 进暂存区，再 commit
 
- 
+&nbsp;
 
 git mv a.txt b.txt  重命名，相当于把 a.txt 删除，在新增 b.txt，并把这两个操作提交到暂存区
 
@@ -116,17 +116,17 @@ git mv a.txt b.txt  重命名，相当于把 a.txt 删除，在新增 b.txt，�
 
 最简单的恢复的方法是把 b.txt 重命名为 a.txt
 
- 
+&nbsp;
 
 mv a.txt b.txt  把 a.txt 移动到 b.txt，其实是重命名
 
 cp a.txt b.txt   复制 a.txt，并命名为 b.txt
 
- 
+&nbsp;
 
 git rm --cache a.txt  移除暂存区中的 a.txt，不对该文件进行跟踪
 
- 
+&nbsp;
 
 git checkout -- a.txt   丢弃工作区的修改，与暂存区保持一致（第一次 add 了，然后从当前到下一次 add 之前，本质就是把文件从暂存区恢复到工作区）：比如把 a.txt add 之后，用 rm 删除 a.txt，删除之后可以用这个命令恢复
 
@@ -146,7 +146,7 @@ git blame 'file'  列出文件由谁修改，修改内容、时间
 
 git congif --global alias.br branch  设置简写（别名）
 
-查看远程分支的 log
+- 查看远程分支的 log
 
 git log origin/master
 
@@ -154,7 +154,7 @@ git log remotes/origin/master
 
 git log refs/remotes/origin/master
 
- 
+&nbsp;
 
 git log -n      查看近 n 条的提交信息
 
@@ -194,7 +194,6 @@ git diff             比较工作区和暂存区的区别，原文件是工作�
 ![](https://i.loli.net/2019/07/18/5d301ed5546ea78586.png)
 
 
-
 git diff HEAD          比较工作区与 HEAD（当前分支，最新提交）的区别，原文件是工作区，目标文件是暂存区
 
 git diff --cached     比较暂存区和 HEAD（当前分支，最新提交）的区别，原文件是暂存区，目标文件是最新提交
@@ -222,7 +221,6 @@ git checkout commit_id    切换到某个历史提交点（此时处于在游离
 ![](https://i.loli.net/2019/07/18/5d301ef6de06869114.png)
 
 
-
 git branch -d a   删除 a 分支
 
 git branch -D a        强制删除 a 分支，有些时候可能会删除失败，比如如果 a 分支的代码还没有合并到 master，你执行 git branch -d a 是删除不了的，它会智能的提示你 a 分支还有未合并的代码，但是如果你非要删除，那就执行 git branch -D a 就可以强制删除 a 分支
@@ -239,7 +237,7 @@ git merge a      把 a 分支合并到当前分支，需要先切换到当前分
 
 ![](https://i.loli.net/2019/07/18/5d30232eefffb87216.png)
 
- ![](https://i.loli.net/2019/07/18/5d3020a8256bd13076.png)
+![](https://i.loli.net/2019/07/18/5d3020a8256bd13076.png)
 
 如果 master 和 dev 分支修改了同一个地方：把 dev 合并到 master 上时，会出现冲突，需手动解决，解决之后，执行 git status 查看状态，需要 git add "file"，然后 git commit 就行
 
@@ -277,25 +275,25 @@ git fetch 从远程 master 拉取最新的到本地 origin/master，不会失败
 
 git merge 从本地 origin/master 合并到本地 master，可能会出现冲突
 
- 
+&nbsp;
 
 两人修改了相同的地方，其中一个人先 push，另一个人一般是先拉取分支，如果这个人有文件没有 commit 的话，会提示先 commit，不然无法 pull，commit 之后，再 pull 的话，会提示有冲突，冲突内容已经写入到冲突文件中了，需要先解决冲突，完了之后 git add . 再 git commit（不加任何东西）会进入编辑模式，默认就行，此时，本地分支已经比远程分支多了两次提交，最后执行 git push  就行，这个人的文件就是最新的，先 push 的那个人需要 git pull 拉取最新的内容
 
- 
 
-**把分支推送到远程**
+
+- 把分支推送到远程
 
 git push --set-upstream origin dev（等价于 git push -u origin dev）如果想把本地 dev 推送到远程的 dev2，就需要 git push --set-upstream origin dev:dev2，但是在执行 git push 的时候会报错，提示本地分支和远程分支不同名，解决办法：写全 git push 的命令，完整写法是 git push origin src:dst，这里需要写成 git push origin HEAD:dev2（HEAD 指当前分支，也可以写成 dev）,如果本地和远程分支同名，完整的写法是 git push origin dev，把远程分支省略掉了，进而更简洁的写法是 git push
 
  
 
-**把远程分支拉取到本地**
+- 把远程分支拉取到本地
 
 把 dev 分支推送到远程，另一个人 git pull 的时候，会把 origin/dev 拉取下来，但是本地并没有 dev 分支，想要创建本地 dev 分支，需要执行
 
 git branch dev origin/dev（等价于 git checkout --track origin/dev，在本地创建一个跟远程分支名字一样的分支，若像创建一个与远程分支名不一样，就用前面的）意思是创建一个追踪远程 dev 的本地 dev
 
- 
+&nbsp;
 
 一个人删除了一个远程分支，另一个人使用 git remote show origin 查看远程仓库的信息，会出现下面情况（本地 master，dev，test，远程master，dev，test，删除远程 dev）
 
@@ -325,15 +323,13 @@ git stash pop      合并上面两步操作
 
 ![](https://i.loli.net/2019/07/18/5d30218b9058f39798.png)
 
-
-
 git show v1.0      显示标签内容
 
 一个标签对应两个 id，一个是标签本身的 id，另一个是标签对应的分支提交点的 commit id
 
- 
+&nbsp;
 
-标签推送到远程：
+- 标签推送到远程：
 
 git push origin v1.0 
 
@@ -343,19 +339,19 @@ git push origin v1.0 v2.0 v3.0  批量推送标签
 
 git push origin --tags    一次性推送所有标签
 
-只拉取标签
+- 只拉取标签
 
 git fetch origin tag v1.0
 
-删除远程标签：
+- 删除远程标签：
 
 git push origin :refs/tags/v1.0
 
 git push origin --delete tag v1.0
 
- 
 
-.gitignore
+
+**.gitignore**  
 
 ![](https://i.loli.net/2019/07/18/5d3021a1f175678980.png)
 
